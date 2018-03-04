@@ -24,23 +24,23 @@ public class JwtTokenUtil implements Serializable {
 
     private static final long serialVersionUID = -3301605591108950415L;
 
-    static final String CLAIM_KEY_USERNAME = "sub";
-    static final String CLAIM_KEY_AUDIENCE = "aud";
-    static final String CLAIM_KEY_CREATED = "iat";
-
     static final String AUDIENCE_UNKNOWN = "unknown";
     static final String AUDIENCE_WEB = "web";
     static final String AUDIENCE_MOBILE = "mobile";
     static final String AUDIENCE_TABLET = "tablet";
 
-    @Autowired
+
     private TimeProvider timeProvider;
-
-    @Value("${jwt.secret}")
     private String secret;
-
-    @Value("${jwt.expiration}")
     private Long expiration;
+
+    @Autowired
+    public JwtTokenUtil(TimeProvider timeProvider,@Value("${jwt.secret}") String secret,
+                        @Value("${jwt.expiration}")Long expiration ) {
+        this.timeProvider = timeProvider;
+        this.secret = secret;
+        this.expiration = expiration;
+    }
 
     public String getUsernameFromToken(String token) {
         return getClaimFromToken(token, Claims::getSubject);

@@ -12,10 +12,6 @@ public enum AuthorityName {
         name = s;
     }
 
-    public boolean equalsName(String otherName) {
-        return name.equals(otherName);
-    }
-
     public String toString() {
         return this.name;
     }

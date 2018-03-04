@@ -9,7 +9,6 @@ import com.lshadown.example.repositories.AuthorityRepository;
 import com.lshadown.example.repositories.UserJwtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mobile.device.Device;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -40,7 +39,7 @@ public class AuthController extends AuthorizationProcessing {
                           UserDetailsService userDetailsService, UserJwtRepository userRepository,
                           PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
 
-        super(userRepository, passwordEncoder,  authorityRepository);
+        super(userRepository, passwordEncoder, authorityRepository);
 
         this.authenticationManager = authenticationManager;
         this.jwtTokenUtil = jwtTokenUtil;

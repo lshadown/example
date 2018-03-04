@@ -16,14 +16,13 @@ import java.util.Date;
 /**
  * @author lshadown
  */
+
 public class AuthorizationProcessing {
 
     private UserJwtRepository userRepository;
     private AuthorityRepository authorityRepository;
     private PasswordEncoder passwordEncoder;
 
-
-    @Autowired
     public AuthorizationProcessing(UserJwtRepository userRepository, PasswordEncoder passwordEncoder,
                                    AuthorityRepository authorityRepository) {
         this.userRepository = userRepository;

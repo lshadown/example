@@ -5,9 +5,7 @@ import com.lshadown.example.jwt.JwtTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,12 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private JwtEntryPoint unauthorizedHandler;
-
-    @Autowired
-    private UserDetailsService userDetailsService;
-
     private static final String[] AUTH_WHITELIST = {
 
             // -- swagger ui
@@ -39,24 +31,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/api-docs",
             "/webjars/**"
     };
+    private JwtTokenFilter jwtTokenFilter;
+    private JwtEntryPoint unauthorizedHandler;
+    private UserDetailsService userDetailsService;
 
-    /*@Bean
-    public AuthenticationManager authenticationManager(){
-        return new AuthenticationManagerBuilder()
-                .userDetailsService(this.userDetailsService)
-                .passwordEncoder(passwordEncoder());
-    }*/
+    @Autowired
+    public WebSecurityConfig(JwtEntryPoint unauthorizedHandler, UserDetailsService userDetailsService,
+                             JwtTokenFilter jwtTokenFilter) {
+        super();
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.userDetailsService = userDetailsService;
+        this.jwtTokenFilter = jwtTokenFilter;
+    }
 
-
-
-    @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
+    @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
-    @Autowired
-    public void configureAuthentication(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+    @Override
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder
                 .userDetailsService(this.userDetailsService)
                 .passwordEncoder(passwordEncoder());
@@ -67,23 +62,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public JwtTokenFilter authenticationTokenFilterBean() {
-        return new JwtTokenFilter();
-    }
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .antMatchers(AUTH_WHITELIST).permitAll()
-                .antMatchers( "/auth/**").permitAll()
+                .antMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated();
 
         httpSecurity
-                .addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

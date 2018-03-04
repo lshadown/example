@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan({"com.lshadown.example"})
+@ComponentScan({"com.lshadown.example" })
 public class ExampleApplication {
 
 	public static void main(String[] args) {

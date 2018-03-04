@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -23,18 +24,23 @@ import java.io.IOException;
  * @author lshadown
  */
 
+@Component
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final Log logger = LogFactory.getLog(JwtTokenFilter.class);
 
-    @Autowired
     private UserDetailsService userDetailsService;
+    private JwtTokenUtil jwtTokenUtil;
+    private String tokenHeader;
 
     @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-    @Value("${jwt.header}")
-    private String tokenHeader;
+    public JwtTokenFilter(UserDetailsService userDetailsService, JwtTokenUtil jwtTokenUtil,
+                          @Value("${jwt.header}") String tokenHeader) {
+        super();
+        this.userDetailsService = userDetailsService;
+        this.jwtTokenUtil = jwtTokenUtil;
+        this.tokenHeader = tokenHeader;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {

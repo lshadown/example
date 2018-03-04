@@ -49,15 +49,15 @@ public class SwaggerConfig {
 
     }
     @Bean
-    SecurityConfiguration security() {
+    public SecurityConfiguration security() {
         return new SecurityConfiguration(
                 null,
                 null,
-                null, // realm Needed for authenticate button to work
-                null, // appName Needed for authenticate button to work
-                "BEARER ",// apiKeyValue
+                null,
+                null,
+                "BEARER ",
                 ApiKeyVehicle.HEADER,
-                "AUTHORIZATION", //apiKeyName
+                "AUTHORIZATION",
                 null);
     }
 

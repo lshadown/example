@@ -1,6 +1,7 @@
 package com.lshadown.example.entities;
 
 import com.lshadown.example.models.jwt.AuthorityName;
+import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "AUTHORITY")
+@Data
 public class AuthorityEntity {
 
     @Id
@@ -22,33 +24,9 @@ public class AuthorityEntity {
 
     @Column(name = "NAME", length = 50)
     @NotNull
-    //@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
     @ManyToMany(mappedBy = "authorities", fetch = FetchType.LAZY)
     private List<UserEntity> users;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public AuthorityName getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = AuthorityName.valueOf(name);
-    }
-
-    public List<UserEntity> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<UserEntity> users) {
-        this.users = users;
-    }
 }
