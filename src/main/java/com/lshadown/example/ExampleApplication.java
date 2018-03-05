@@ -11,7 +11,6 @@ import java.util.Arrays;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@EnableWebMvc
 @ComponentScan({"com.lshadown.example" })
 public class ExampleApplication {
 

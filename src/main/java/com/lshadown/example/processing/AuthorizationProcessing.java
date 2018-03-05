@@ -30,7 +30,7 @@ public class AuthorizationProcessing {
         this.authorityRepository = authorityRepository;
     }
 
-    protected ResponseEntity<?> registerUser(JwtRegisterRequest jwtRegisterRequest) {
+    protected void registerUser(JwtRegisterRequest jwtRegisterRequest) {
         AuthorityEntity authority = authorityRepository.findByName(AuthorityName.ROLE_USER);
 
 
@@ -49,8 +49,5 @@ public class AuthorizationProcessing {
         });
 
         userRepository.save(user);
-
-
-        return ResponseEntity.ok("");
     }
 }

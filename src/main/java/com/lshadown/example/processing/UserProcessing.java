@@ -14,8 +14,7 @@ public class UserProcessing {
         this.userDetailsService = userDetailsService;
     }
 
-    protected ResponseEntity<?> userInfo(String userName) {
-        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(userName);
-        return ResponseEntity.ok(user);
+    protected JwtUser userInfo(String userName) {
+       return (JwtUser) userDetailsService.loadUserByUsername(userName);
     }
 }

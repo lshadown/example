@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserJwtRepository extends JpaRepository<UserEntity, Long> {
     UserEntity findByUsername(String username);
+    void deleteByUsername(String username);
 }
