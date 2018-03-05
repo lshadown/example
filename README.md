@@ -8,6 +8,12 @@
 ```
 Example is project that shows examples of implementations JWT authorization, Swagger(only UI), Flyway, H2.
 
+## New Features!
+- Swagger UI
+- H2 database
+- Flyway
+- MockMvc
+
 ## Getting Started
 
 You can download zip packge or clone :
@@ -22,18 +28,20 @@ git clone https://github.com/lshadown/example.git
 mvn clean install
 
 ```
-
-
 ## Running the tests
 
 ```
 mvn test
-
+```
+## Runing application
+```
+java -jar example-0.0.2-SNAPSHOT.jar
 ```
 
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
+
 
 ## Authors
 
@@ -55,10 +63,3 @@ See also the list of [contributors](https://github.com/lshadown/example/contribu
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and 
     limitations under the License.
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
-
