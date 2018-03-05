@@ -17,7 +17,7 @@ Example is project that shows examples of implementations JWT authorization, Swa
 
 ## Getting Started
 
-You can download zip packge or clone :
+You can download zip package or clone :
 
 ```
 git clone https://github.com/lshadown/example.git
@@ -34,7 +34,7 @@ mvn clean install
 ```
 mvn test
 ```
-## Runing application
+## Running application
 ```
 java -jar example-0.0.2-SNAPSHOT.jar
 ```
