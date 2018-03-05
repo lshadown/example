@@ -24,7 +24,6 @@ public class MainController {
     @PreAuthorize("hasRole(T(com.lshadown.example.models.jwt.AuthorityName).ROLE_USER)")
     @RequestMapping(value = "/user", method = GET)
     public Callable<String> getUserName() {
-        logger.info("Incoming request");
         return () -> "example controller test";
     }
 }

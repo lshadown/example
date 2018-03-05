@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.concurrent.Callable;
 
 /**
  * @author lshadown
  */
+
 @RestController
 @RequestMapping("/auth")
 public class AuthController extends AuthorizationProcessing {
@@ -48,7 +50,7 @@ public class AuthController extends AuthorizationProcessing {
 
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResponseEntity<?> authorization(@RequestBody JwtAuthRequest jwtAuthRequest) {
+    public Callable<?> authorization(@RequestBody JwtAuthRequest jwtAuthRequest) {
 
         final Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -62,11 +64,11 @@ public class AuthController extends AuthorizationProcessing {
         final UserDetails userDetails = userDetailsService.loadUserByUsername(jwtAuthRequest.getUserName());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtAuthResponse(token));
+        return (Callable<Object>) () -> ResponseEntity.ok(new JwtAuthResponse(token));
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<?> registration(@RequestBody @Valid JwtRegisterRequest jwtRegisterRequest) {
-        return AuthController.super.registerUser(jwtRegisterRequest);
+    public Callable<?> registration(@RequestBody @Valid JwtRegisterRequest jwtRegisterRequest) {
+        return (Callable<Object>) () ->AuthController.super.registerUser(jwtRegisterRequest);
     }
 }

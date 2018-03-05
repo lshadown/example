@@ -42,7 +42,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .paths(PathSelectors.regex("/auth/.*|/main/.*"))
+                .paths(PathSelectors.regex("/auth/.*|/user/.*|/main/.*"))
                 .build()
                 .securityContexts(Lists.newArrayList(securityContext()))
                 .securitySchemes(Lists.newArrayList(apiKey()));
@@ -68,7 +68,7 @@ public class SwaggerConfig {
     private SecurityContext securityContext() {
         return SecurityContext.builder()
                 .securityReferences(defaultAuth())
-                .forPaths(PathSelectors.regex("/main.*"))
+                .forPaths(PathSelectors.regex("/user.*|/main.*"))
                 .build();
     }
 
