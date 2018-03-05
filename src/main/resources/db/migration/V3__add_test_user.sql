@@ -1,0 +1,2 @@
+insert into userjwt (id,email, enabled, firstname, lastpasswordresetdate, lastname, password, username) values (user_seq.nextval,'test@test.pl', TRUE , 'Test', GETDATE(), 'Test', '$2a$10$nUcx8ObEBlJ.f60GHM2hHe8B3GhPbNn9.XfCnvu40Tt6B0kDVZwXy', 'test');
+insert into user_authority(user_id,authority_id) values ((select id FROM userjwt where username='test'), (select id FROM authority where name='ROLE_USER'));

@@ -1,16 +1,17 @@
-package com.lshadown.example.app;
+package com.lshadown.example;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
 
 @SpringBootApplication
 @EnableAutoConfiguration
-@ComponentScan({"com.lshadown.example"})
+@ComponentScan({"com.lshadown.example" })
 public class ExampleApplication {
 
 	public static void main(String[] args) {
