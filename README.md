@@ -6,13 +6,14 @@
 /_____//_/|_/_/  |_/_/  /_/_/   /_____/_____/   
                                      0.0.2
 ```
-Example is project that shows examples of implementations JWT authorization, Swagger(only UI), Flyway, H2.
+Example is project that shows examples of implementations JWT authorization, Swagger(UI), Flyway, H2.
 
 ## New Features!
 - Swagger UI
 - H2 database
 - Flyway
 - MockMvc
+- JWT
 
 ## Getting Started
 
